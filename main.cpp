@@ -1,5 +1,7 @@
 /** @file */
 #include <iostream>
+#include "Mono8BitManager.h"
+#include "PreprocessManager.h"
 
 /**
  * \brief   The function bar.
@@ -26,6 +28,9 @@ void fn(){
 }
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    AudioManager *preprocessManager = new PreprocessManager();
+    AudioManager *eightbitone = new Mono8BitManager();
+    eightbitone->captureData("yes-8-bit-stereo.wav");
+    eightbitone->print();
     return 0;
 }
