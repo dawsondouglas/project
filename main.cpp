@@ -28,9 +28,24 @@ void fn(){
 }
 
 int main() {
-    AudioManager *preprocessManager = new PreprocessManager();
+    PreprocessManager *preprocessManager = new PreprocessManager();
     AudioManager *eightbitone = new Mono8BitManager();
-    eightbitone->captureData("yes-8-bit-stereo.wav");
-    eightbitone->print();
+    //AudioManager *sixteenbitone = new Mono16BitManager();
+    //AudioManager eightbittwo = new Stereo8BitManager();
+    //AudioManager sixteenbittwo = new Stereo16BitManager();
+    preprocessManager->captureData("yes-8-bit-stereo.wav");
+    int bitRate = preprocessManager->processBitrate();
+    switch (bitRate)
+    {
+    case 8:
+        eightbitone->captureData("yes-8-bit-mono.wav");
+        eightbitone->print();
+        break;
+    case 16:
+        std::cout << "FAIL";
+        break;
+    default:
+        break;
+    }
     return 0;
 }

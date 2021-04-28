@@ -2,7 +2,6 @@
 #define MONO8BITMANAGER_CODE
 
 #include "AudioManager.h"
-#include <fstream>
 #include <iostream>
 
 class Mono8BitManager : public AudioManager
