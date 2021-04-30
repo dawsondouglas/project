@@ -4,7 +4,7 @@
 #include "AudioManager.h"
 #include "Header.h"
 
-class PreprocessManager : public AudioManager
+class PreprocessManager : public AudioManager<int>
 {
 private:
     Header header;
@@ -12,7 +12,10 @@ public:
     PreprocessManager(/* args */);
     ~PreprocessManager();
     void captureData(const std::string &fileName) override;
-    bool processChannels();
+    int getBuffer() override;
+    Header getHeader() override;
+    MetaData getMetaData() override;
+    bool checkIfStereo();
     int processBitrate();
     void print() override;
 };

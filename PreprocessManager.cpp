@@ -14,7 +14,7 @@ void PreprocessManager::captureData(const std::string &fileName) {
         file.read((char*)&header, sizeof(Header));        
     }   
 }
-bool PreprocessManager::processChannels()
+bool PreprocessManager::checkIfStereo()
 {
     if (header.num_channels == 2)
     {
@@ -25,6 +25,21 @@ bool PreprocessManager::processChannels()
 int PreprocessManager::processBitrate()
 {
     return ((header.byte_rate / header.num_channels) / header.sample_rate) * 8;
+}
+
+int PreprocessManager::getBuffer()
+{
+    return 0;
+}
+
+Header PreprocessManager::getHeader()
+{
+    return PreprocessManager::header;
+}
+
+MetaData PreprocessManager::getMetaData()
+{
+    return PreprocessManager::metadata;
 }
 
 void PreprocessManager::print() {

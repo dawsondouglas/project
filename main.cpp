@@ -1,7 +1,19 @@
+//Douglas Dawson & Jarrit Learoyd
+//5/2/21
+//Final Semester Project
+//To store information in a CSV file that can import into any spreadsheet program
+
 /** @file */
 #include <iostream>
+#include <vector>
 #include "Mono8BitManager.h"
+#include "Mono16BitManager.h"
+#include "Stereo8BitManager.h"
+#include "Stereo16BitManager.h"
 #include "PreprocessManager.h"
+#include "Wav.h"
+
+using namespace std;
 
 /**
  * \brief   The function bar.
@@ -29,23 +41,46 @@ void fn(){
 
 int main() {
     PreprocessManager *preprocessManager = new PreprocessManager();
-    AudioManager *eightbitone = new Mono8BitManager();
-    //AudioManager *sixteenbitone = new Mono16BitManager();
-    //AudioManager eightbittwo = new Stereo8BitManager();
-    //AudioManager sixteenbittwo = new Stereo16BitManager();
+    AudioManager<unsigned char*> *eightbitone = new Mono8BitManager();
+    AudioManager<short*> *sixteenbitone = new Mono16BitManager();
+    AudioManager<unsigned char*> *eightbittwo = new Stereo8BitManager();
+    AudioManager<short*> *sixteenbittwo = new Stereo16BitManager();
+    vector<Wav*> songs;
     preprocessManager->captureData("yes-8-bit-stereo.wav");
     int bitRate = preprocessManager->processBitrate();
     switch (bitRate)
     {
     case 8:
-        eightbitone->captureData("yes-8-bit-mono.wav");
-        eightbitone->print();
+        if (preprocessManager->checkIfStereo())
+        {
+            eightbittwo->captureData("yes-8-bit-stereo.wav");
+            eightbittwo->print();
+            songs.push_back(new Wav(eightbittwo->getBuffer(),eightbittwo->getHeader(),eightbittwo->getMetaData()));
+        }
+        else
+        {
+            eightbitone->captureData("yes-8-bit-mono.wav");
+            eightbitone->print();
+            songs.push_back(new Wav(eightbitone->getBuffer(),eightbitone->getHeader(),eightbitone->getMetaData()));
+        }      
         break;
     case 16:
-        std::cout << "FAIL";
+        if (preprocessManager->checkIfStereo())
+        {
+            sixteenbitone->captureData("yes-16-bit-stereo.wav");
+            sixteenbitone->print();
+            songs.push_back(new Wav(sixteenbittwo->getBuffer(),sixteenbittwo->getHeader(),sixteenbittwo->getMetaData()));
+        }
+        else
+        {
+            sixteenbittwo->captureData("yes-16-bit-mono.wav");
+            sixteenbittwo->print();
+            songs.push_back(new Wav(sixteenbitone->getBuffer(),sixteenbitone->getHeader(),sixteenbitone->getMetaData()));
+        }
         break;
     default:
         break;
     }
+
     return 0;
 }

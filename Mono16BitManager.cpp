@@ -1,40 +1,40 @@
-#include "Mono8BitManager.h"
+#include "Mono16BitManager.h"
 
-Mono8BitManager::Mono8BitManager(/* args */)
+Mono16BitManager::Mono16BitManager(/* args */)
 {
 }
 
-Mono8BitManager::~Mono8BitManager()
+Mono16BitManager::~Mono16BitManager()
 {
 }
 
-void Mono8BitManager::captureData(const std::string &fileName) {
+void Mono16BitManager::captureData(const std::string &fileName) {
     std::ifstream file(fileName,std::ios::binary | std::ios::in);
     if(file.is_open()){
         file.read((char*)&header, sizeof(Header));
-        Mono8BitManager::buffer = new unsigned char[header.data_bytes];
+        Mono16BitManager::buffer = new short[header.data_bytes];
         file.read((char*)buffer, header.data_bytes);
         file.read((char*)&metadata, sizeof(MetaData));
     }
 
 }
 
-unsigned char* Mono8BitManager::getBuffer()
+short* Mono16BitManager::getBuffer()
 {
-    return Mono8BitManager::buffer;
+    return Mono16BitManager::buffer;
 }
 
-Header Mono8BitManager::getHeader()
+Header Mono16BitManager::getHeader()
 {
-    return Mono8BitManager::header;
+    return Mono16BitManager::header;
 }
 
-MetaData Mono8BitManager::getMetaData()
+MetaData Mono16BitManager::getMetaData()
 {
-    return Mono8BitManager::metadata;
+    return Mono16BitManager::metadata;
 }
 
-void Mono8BitManager::print(){
+void Mono16BitManager::print(){
     std::cout << header.riff_header << std::endl;
     std::cout << header.wav_size << std::endl;
     std::cout << header.fmt_header << std::endl;
@@ -48,11 +48,5 @@ void Mono8BitManager::print(){
     std::cout << metadata.info_header << std::endl;
     std::cout << metadata.meta_sub1 << std::endl;
     std::cout << metadata.sub1_characters << std::endl;
-    std::cout << metadata.sub1_data << std::endl;
-
-    for (size_t i = 0; i < 44100; i++)
-    {
-        std::cout << (int)buffer[i] << std::endl;
-    }
-    
+    std::cout << metadata.sub1_data << std::endl;   
 }

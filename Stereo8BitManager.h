@@ -3,23 +3,19 @@
 
 #include "AudioManager.h"
 
-class Stereo8BitManager : public AudioManager
+class Stereo8BitManager : public AudioManager<unsigned char*>
 {
 private:
-    unsigned char* leftBuffer;
-    unsigned char* rightBuffer;
+    unsigned char* buffer;
+    
 public:
     Stereo8BitManager(/* args */);
     ~Stereo8BitManager();
+    void captureData(const std::string &fileName) override;
+    unsigned char* getBuffer() override;
+    Header getHeader() override;
+    MetaData getMetaData() override;
+    void print() override;
 };
-
-Stereo8BitManager::Stereo8BitManager(/* args */)
-{
-}
-
-Stereo8BitManager::~Stereo8BitManager()
-{
-}
-
 
 #endif // MONOMANAGER_CODE
