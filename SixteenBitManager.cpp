@@ -1,40 +1,48 @@
-#include "Mono16BitManager.h"
+#include "SixteenBitManager.h"
 
-Mono16BitManager::Mono16BitManager(/* args */)
+SixteenBitManager::SixteenBitManager(/* args */)
 {
 }
 
-Mono16BitManager::~Mono16BitManager()
+SixteenBitManager::~SixteenBitManager()
 {
 }
 
-void Mono16BitManager::captureData(const std::string &fileName) {
+void SixteenBitManager::captureData(const std::string &fileName) {
     std::ifstream file(fileName,std::ios::binary | std::ios::in);
     if(file.is_open()){
         file.read((char*)&header, sizeof(Header));
-        Mono16BitManager::buffer = new short[header.data_bytes];
+        SixteenBitManager::buffer = new short[header.data_bytes];
         file.read((char*)buffer, header.data_bytes);
         file.read((char*)&metadata, sizeof(MetaData));
     }
 
 }
 
-short* Mono16BitManager::getBuffer()
-{
-    return Mono16BitManager::buffer;
+void SixteenBitManager::writeFile(const std::string &outFileName, Wav *wav) {
+    std::ofstream outFile(outFileName, std::ios::out | std::ios::binary);
+    outFile.write((char*)&wav->getHeader(),sizeof(Header));
+    outFile.write((char*)wav->get16BitBuffer(), wav->getBufferSize());
+    outFile.write((char*)&wav->getMetaData(), sizeof(MetaData));
+    outFile.close();
 }
 
-Header Mono16BitManager::getHeader()
+short* SixteenBitManager::getBuffer()
 {
-    return Mono16BitManager::header;
+    return SixteenBitManager::buffer;
 }
 
-MetaData Mono16BitManager::getMetaData()
+Header SixteenBitManager::getHeader()
 {
-    return Mono16BitManager::metadata;
+    return SixteenBitManager::header;
 }
 
-void Mono16BitManager::print(){
+MetaData SixteenBitManager::getMetaData()
+{
+    return SixteenBitManager::metadata;
+}
+
+void SixteenBitManager::print(){
     std::cout << header.riff_header << std::endl;
     std::cout << header.wav_size << std::endl;
     std::cout << header.fmt_header << std::endl;

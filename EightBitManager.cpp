@@ -1,39 +1,48 @@
-#include "Stereo16BitManager.h"
+#include "EightBitManager.h"
 
-Stereo16BitManager::Stereo16BitManager(/* args */)
+EightBitManager::EightBitManager(/* args */)
 {
 }
 
-Stereo16BitManager::~Stereo16BitManager()
+EightBitManager::~EightBitManager()
 {
 }
 
-void Stereo16BitManager::captureData(const std::string &fileName) {
+void EightBitManager::captureData(const std::string &fileName) {
     std::ifstream file(fileName,std::ios::binary | std::ios::in);
     if(file.is_open()){
         file.read((char*)&header, sizeof(Header));
-        Stereo16BitManager::buffer = new short[header.data_bytes];
+        EightBitManager::buffer = new unsigned char[header.data_bytes];
         file.read((char*)buffer, header.data_bytes);
         file.read((char*)&metadata, sizeof(MetaData));
     }
+
 }
 
-short* Stereo16BitManager::getBuffer()
+void EightBitManager::writeFile(const std::string &outFileName, Wav *wav) {
+    std::ofstream outFile(outFileName, std::ios::out | std::ios::binary);
+    outFile.write((char*)&wav->getHeader(),sizeof(Header));
+    outFile.write((char*)wav->get8BitBuffer(), wav->getBufferSize());
+    outFile.write((char*)&wav->getMetaData(), sizeof(MetaData));
+    outFile.close();
+}
+
+unsigned char* EightBitManager::getBuffer()
 {
-    return Stereo16BitManager::buffer;
+    return EightBitManager::buffer;
 }
 
-Header Stereo16BitManager::getHeader()
+Header EightBitManager::getHeader()
 {
-    return Stereo16BitManager::header;
+    return EightBitManager::header;
 }
 
-MetaData Stereo16BitManager::getMetaData()
+MetaData EightBitManager::getMetaData()
 {
-    return Stereo16BitManager::metadata;
+    return EightBitManager::metadata;
 }
 
-void Stereo16BitManager::print(){
+void EightBitManager::print(){
     std::cout << header.riff_header << std::endl;
     std::cout << header.wav_size << std::endl;
     std::cout << header.fmt_header << std::endl;
@@ -48,4 +57,10 @@ void Stereo16BitManager::print(){
     std::cout << metadata.meta_sub1 << std::endl;
     std::cout << metadata.sub1_characters << std::endl;
     std::cout << metadata.sub1_data << std::endl;
+
+    for (size_t i = 0; i < 44100; i++)
+    {
+        std::cout << (int)buffer[i] << std::endl;
+    }
+    
 }

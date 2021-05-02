@@ -3,6 +3,7 @@
 
 #include "Header.h"
 #include "MetaData.h"
+#include "Wav.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -19,6 +20,7 @@ class AudioManager
     virtual T getBuffer() = 0;
     virtual Header getHeader() = 0;
     virtual MetaData getMetaData() = 0;
+    virtual void writeFile(const std::string &outFileName, Wav *wav) = 0;
     virtual void print() = 0;
 };
 

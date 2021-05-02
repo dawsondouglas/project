@@ -4,14 +4,15 @@
 #include "AudioManager.h"
 
 
-class Mono16BitManager : public AudioManager<short*>
+class SixteenBitManager : public AudioManager<short*>
 {
 private:
     short* buffer;
 public:
-    Mono16BitManager(/* args */);
-    ~Mono16BitManager();
+    SixteenBitManager(/* args */);
+    ~SixteenBitManager();
     void captureData(const std::string &fileName) override;
+    void writeFile(const std::string &outFileName, Wav *wav) override;
     short* getBuffer() override;
     Header getHeader() override;
     MetaData getMetaData() override;

@@ -12,6 +12,7 @@ public:
     PreprocessManager(/* args */);
     ~PreprocessManager();
     void captureData(const std::string &fileName) override;
+    void writeFile(const std::string &outFileName, Wav *wav) override;
     int getBuffer() override;
     Header getHeader() override;
     MetaData getMetaData() override;

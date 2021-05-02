@@ -32,6 +32,10 @@ int PreprocessManager::getBuffer()
     return 0;
 }
 
+void PreprocessManager::writeFile(const std::string &outFileName, Wav *wav)
+{
+}
+
 Header PreprocessManager::getHeader()
 {
     return PreprocessManager::header;
