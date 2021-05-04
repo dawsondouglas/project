@@ -307,10 +307,12 @@ void manageProcessors(vector<Wav*> songs){
                 if (switches[i][1] == true)
                 {
                     Echo *echo = new Echo(echoValue,songs[i]);
+                    echo->~Echo();
                 }
                 if (switches[i][2] == true)
                 {
                     Normalization *normalization = new Normalization(normalizationValue, songs[i]);
+                    normalization->~Normalization();
                 }
             }         
             break;
