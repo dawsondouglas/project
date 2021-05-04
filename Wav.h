@@ -3,6 +3,7 @@
 
 #include "Header.h"
 #include "MetaData.h"
+#include <string>
 
 class Wav
 {
@@ -15,8 +16,9 @@ private:
 public:
     bool isStereo = false;
     bool is16Bit = false;
-    Wav(unsigned char* buffer, Header header, MetaData metadata);
-    Wav(short* buffer, Header header, MetaData metadata);
+    std::string name;
+    Wav(unsigned char* buffer, Header header, MetaData metadata, std::string name);
+    Wav(short* buffer, Header header, MetaData metadata, std::string name);
     unsigned char* get8BitBuffer();
     short* get16BitBuffer();
     int getBufferSize();

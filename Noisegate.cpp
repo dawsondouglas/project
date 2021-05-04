@@ -1,10 +1,10 @@
 #include "Noisegate.h"
 
-Noisegate::Noisegate(float threshold, Wav* wav, bool isStereo, bool is16Bit)
+Noisegate::Noisegate(float threshold, Wav* wav)
 {
     Noisegate::threshold = threshold / 100.;
-    Noisegate::isStereo = isStereo;
-    Noisegate::is16Bit = is16Bit;
+    Noisegate::isStereo = wav->isStereo;
+    Noisegate::is16Bit = wav->is16Bit;
     processBuffer(wav);
 }
 

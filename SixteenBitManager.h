@@ -1,5 +1,5 @@
-#ifndef MONO16BITMANAGER_CODE
-#define MONO16BITMANAGER_CODE
+#ifndef SIXTEENBITMANAGER_CODE
+#define SIXTEENBITMANAGER_CODE
 
 #include "AudioManager.h"
 
@@ -19,4 +19,4 @@ public:
     void print() override;
 };
 
-#endif // MONO16BITMANAGER_CODE
+#endif // SIXTEENBITMANAGER_CODE

@@ -2,14 +2,15 @@
 #define NORMALIZATION_CODE
 
 #include "IAudioProcessor.h"
+#include <algorithm>
 
 class Normalization : public IAudioProcessor
 {
-    float range;
+    int negativeNormal;
     bool isStereo;
     bool is16Bit;
 public:
-    Normalization(int range, Wav &wav, bool isStereo, bool is16Bit);
+    Normalization(int normal, Wav *wav);
     ~Normalization();
     void processBuffer(Wav *wav) override;
 };

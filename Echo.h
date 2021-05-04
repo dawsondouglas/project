@@ -2,7 +2,6 @@
 #define ECHO_CODE
 
 #include "IAudioProcessor.h"
-#include "Wav.h"
 
 class Echo : public IAudioProcessor
 {
@@ -10,9 +9,9 @@ class Echo : public IAudioProcessor
     bool isStereo;
     bool is16Bit;
 public:
-    Echo(int delay, Wav &wav, bool isStereo, bool is16Bit);
+    Echo(float delayInSeconds, Wav* wav);
     ~Echo();
-    void processBuffer() override;
+    void processBuffer(Wav *wav) override;
 };
 
 #endif

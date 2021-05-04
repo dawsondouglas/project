@@ -56,11 +56,5 @@ void EightBitManager::print(){
     std::cout << metadata.info_header << std::endl;
     std::cout << metadata.meta_sub1 << std::endl;
     std::cout << metadata.sub1_characters << std::endl;
-    std::cout << metadata.sub1_data << std::endl;
-
-    for (size_t i = 0; i < 44100; i++)
-    {
-        std::cout << (int)buffer[i] << std::endl;
-    }
-    
+    std::cout << metadata.sub1_data << std::endl;    
 }

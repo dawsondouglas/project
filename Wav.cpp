@@ -1,6 +1,6 @@
 #include "Wav.h"
 
-Wav::Wav(unsigned char* buffer, Header header, MetaData metadata)
+Wav::Wav(unsigned char* buffer, Header header, MetaData metadata, std::string name)
 {
     if (header.num_channels == 2)
     {
@@ -8,10 +8,11 @@ Wav::Wav(unsigned char* buffer, Header header, MetaData metadata)
     }
     Wav::header = header;
     Wav::eightBuffer = buffer;
-    Wav::metadata = metadata;       
+    Wav::metadata = metadata;
+    Wav::name = name;       
 }
 
-Wav::Wav(short* buffer, Header header, MetaData metadata)
+Wav::Wav(short* buffer, Header header, MetaData metadata, std::string name)
 {
     if (header.num_channels == 2)
     {
@@ -21,6 +22,7 @@ Wav::Wav(short* buffer, Header header, MetaData metadata)
     Wav::header = header;
     Wav::sixteenBuffer = buffer;
     Wav::metadata = metadata;
+    Wav::name = name;
 }
 
 Wav::~Wav()

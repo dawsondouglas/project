@@ -1,5 +1,5 @@
-#ifndef MONO8BITMANAGER_CODE
-#define MONO8BITMANAGER_CODE
+#ifndef EIGHTBITMANAGER_CODE
+#define EIGHTBITMANAGER_CODE
 
 #include "AudioManager.h"
 
@@ -18,4 +18,4 @@ public:
     void print() override;
 };
 
-#endif // MONO8BITMANAGER_CODE
+#endif // EIGHTBITMANAGER_CODE
